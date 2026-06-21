@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "C C",
+        "C C",
+        "C C"
+    ],
+    "key": {
+        "C": {
+            "item": "thigh_high_socks:cotton"
+        }
+    },
+    "result": {
+        "id": "thigh_high_socks:sock_white",
+        "count": 1
+    }
+}

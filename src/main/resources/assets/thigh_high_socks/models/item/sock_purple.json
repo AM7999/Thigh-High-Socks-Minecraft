@@ -1,0 +1,6 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "thigh_high_socks:item/sock_purple_item"
+    }
+}

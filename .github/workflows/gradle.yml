@@ -1,0 +1,45 @@
+```yaml
+name: Build Gradle Project
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-jar
+          path: build/libs/*.jar
+          retention-days: 7
+```
+
+A few things to tailor to your project:
+
+- **`java-version`** — change `17` to match your project (8, 11, 21, etc.)
+- **`path`** — `build/libs/*.jar` is the Gradle default. If you use a custom output dir or want only the fat jar, you can be more specific, e.g. `build/libs/*-all.jar`
+- **`retention-days`** — artifacts are kept for 7 days; max is 90
+- **Build task** — `./gradlew build` runs tests too. Use `./gradlew jar` or `./gradlew shadowJar` (if using Shadow plugin) if you want to skip tests or build a fat jar
+
+The uploaded artifact will appear in the **Actions → run → Artifacts** section of your GitHub repo after the workflow completes.
